@@ -150,6 +150,7 @@ function _promptForQuery(type: string): string {
 function _searchListMenu(type:string, results:string[]) : string|undefined {
   if(results.length > 0) {
     console.log('Results found: ');
+    // why is this returning an object????
     let resultsDisplay = '  '+(results.map((item:string, idx:number) => `${idx+1}. ${item}`).join('\n  '));
     console.log(resultsDisplay);
     
