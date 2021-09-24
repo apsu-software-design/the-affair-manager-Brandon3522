@@ -42,4 +42,4 @@ console.log(affairManager.findMemberNames("bob"));
 console.log("\n");
 
 let affairOrg = affairManager.addAffairToOrganization("affair", "org");
-console.log(affairOrg.affairName);
+//console.log(affairOrg.affairName);

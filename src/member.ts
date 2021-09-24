@@ -4,6 +4,7 @@ export class Member{
     private _mName: string;
     private _email: string;
     
+    
     public get mName(): string {
         return this._mName;
     }
@@ -26,11 +27,6 @@ export class Member{
     public toString = () : string => {
         return `Member: ${this.mName} Email: ${this.email}`;
     }
-
-
-
-    
-
 
 }
 

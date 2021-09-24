@@ -7,9 +7,39 @@ var organization_1 = require("./organization");
 var AffairManager = (function () {
     function AffairManager() {
         this._memberList = [];
-        this.affairList = [];
-        this.organizationList = [];
+        this._affairList = [];
+        this._organizationList = [];
     }
+    Object.defineProperty(AffairManager.prototype, "name", {
+        get: function () {
+            return this._name;
+        },
+        set: function (v) {
+            this._name = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AffairManager.prototype, "affairList", {
+        get: function () {
+            return this._affairList;
+        },
+        set: function (affairList) {
+            this._affairList = affairList;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AffairManager.prototype, "organizationList", {
+        get: function () {
+            return this._organizationList;
+        },
+        set: function (prgList) {
+            this._organizationList = this.organizationList;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(AffairManager.prototype, "memberList", {
         get: function () {
             return this._memberList;
@@ -33,6 +63,18 @@ var AffairManager = (function () {
         this.organizationList.push(organization);
     };
     AffairManager.prototype.searchMethod = function (memberName, affairName, organizationName) {
+        if (memberName) {
+            var memberList = this.findMemberNames(memberName);
+            return memberList;
+        }
+        else if (affairName) {
+            var affairList = this.findAffairNames(affairName);
+            return affairList;
+        }
+        else if (organizationName) {
+            var orgList = this.findOrganizationNames(organizationName);
+            return orgList;
+        }
         return;
     };
     AffairManager.prototype.findMemberNames = function (memberName) {
@@ -72,19 +114,24 @@ var AffairManager = (function () {
                         if (this._memberList[i].mName == memberName)
                             member = this._memberList[i];
                     }
+                console.log("Member added.");
                 this.affairList[index].affairMemberList.push(member);
             }
         }
     };
     AffairManager.prototype.modifyAffair = function (affairName, newAffairName, time) {
-        for (var i = 0; i <= this.affairList.length - 1; i++) {
-            if (this.affairList[i].affairName == affairName) {
-                this.affairList[i].affairName = newAffairName;
+        if (newAffairName) {
+            for (var i = 0; i <= this.affairList.length - 1; i++) {
+                if (this.affairList[i].affairName == affairName) {
+                    this.affairList[i].affairName = newAffairName;
+                }
             }
         }
-        for (var i = 0; i <= this.affairList.length - 1; i++) {
-            if (this.affairList[i].affairName == affairName) {
-                this.affairList[i].time = time;
+        else if (time) {
+            for (var i = 0; i <= this.affairList.length - 1; i++) {
+                if (this.affairList[i].affairName == affairName) {
+                    this.affairList[i].time = time;
+                }
             }
         }
     };
@@ -101,6 +148,7 @@ var AffairManager = (function () {
                         if (this.affairList[i].affairName == affairName)
                             affair = this.affairList[i];
                     }
+                console.log("Affair added.");
                 this.organizationList[index].affairList.push(affair);
             }
         }
@@ -112,7 +160,6 @@ var AffairManager = (function () {
                 return members;
             }
         }
-        return;
     };
     return AffairManager;
 }());

@@ -116,7 +116,7 @@ function showAddToAffairMenu(em:AffairManager, affairName?:string) {
  */
 function showSearchMembersMenu(em:AffairManager) : string|undefined {
   let query:string = _promptForQuery('member');
-  return _searchListMenu('member', em.findMemberNames(query));
+  return _searchListMenu('member', em.searchMethod(query));
 }
 
 /**
@@ -124,7 +124,7 @@ function showSearchMembersMenu(em:AffairManager) : string|undefined {
  */
 function showSearchAffairsMenu(em:AffairManager) : string|undefined {
   let query:string = _promptForQuery('affair');
-  return _searchListMenu('affair', em.findAffairNames(query));
+  return _searchListMenu('affair', em.searchMethod(undefined, query));
 }
 
 /**
@@ -132,7 +132,7 @@ function showSearchAffairsMenu(em:AffairManager) : string|undefined {
  */
 function showSearchOrganizationsMenu(em:AffairManager) : string|undefined {
   let query:string = _promptForQuery('organization');
-  return _searchListMenu('organization', em.findOrganizationNames(query));
+  return _searchListMenu('organization', em.searchMethod(undefined, undefined, query));
 }
 
 /**

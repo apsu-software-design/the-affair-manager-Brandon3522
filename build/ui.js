@@ -87,15 +87,15 @@ function showAddToAffairMenu(em, affairName) {
 }
 function showSearchMembersMenu(em) {
     var query = _promptForQuery('member');
-    return _searchListMenu('member', em.findMemberNames(query));
+    return _searchListMenu('member', em.searchMethod(query));
 }
 function showSearchAffairsMenu(em) {
     var query = _promptForQuery('affair');
-    return _searchListMenu('affair', em.findAffairNames(query));
+    return _searchListMenu('affair', em.searchMethod(undefined, query));
 }
 function showSearchOrganizationsMenu(em) {
     var query = _promptForQuery('organization');
-    return _searchListMenu('organization', em.findOrganizationNames(query));
+    return _searchListMenu('organization', em.searchMethod(undefined, undefined, query));
 }
 function _promptForQuery(type) {
     console.log("Searching for a " + type + ".");

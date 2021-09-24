@@ -5,25 +5,47 @@ import { Organization } from "./organization";
 
 
 export class AffairManager {
-    private name: string;
+    private _name: string;
     private _memberList: Member[];
-    public affairList: Affair[];
-    public organizationList: Organization[];
+    private _affairList: Affair[];
+    private _organizationList: Organization[];
+
 
     constructor(){
-        // ??
         this._memberList = [];
-        this.affairList = [];
-        this.organizationList = [];
-        // let organizationList = new Organization<>();
-        // let affairList = new Affair<>();
+        this._affairList = [];
+        this._organizationList = [];
     }
 
-    get memberList(){
+    public get name() : string {
+        return this._name;
+    }
+
+    public set name(v : string) {
+        this._name = v;
+    }
+
+    public get affairList(){
+        return this._affairList;
+    }
+
+    public set affairList(affairList: Affair[]){
+        this._affairList = affairList;
+    }
+
+    public get organizationList(){
+        return this._organizationList;
+    }
+
+    public set organizationList(prgList: Organization[]){
+        this._organizationList = this.organizationList;
+    }
+
+    public get memberList(){
         return this._memberList;
     }
 
-    set memberList(memberList: Member[]){
+    public set memberList(memberList: Member[]){
         this._memberList = memberList;
     }
 
@@ -43,12 +65,24 @@ export class AffairManager {
         let organization = new Organization(orgName);
         this.organizationList.push(organization);
     }
+
     // use helper search functions to consolidate
-    // Use filter() function to help
-    public searchMethod(memberName?: string, affairName?: string, organizationName?: string): string{
-        
-        
-        
+    // Use filter() function to help ?
+    public searchMethod(memberName?: string, affairName?: string, organizationName?: string): string[]{
+        if (memberName){
+            let memberList = this.findMemberNames(memberName);
+            return memberList;
+        }
+
+        else if (affairName){
+            let affairList = this.findAffairNames(affairName);
+            return affairList;
+        }
+
+        else if (organizationName){
+            let orgList = this.findOrganizationNames(organizationName);
+            return orgList;    
+        }
         return;
     }
 
@@ -80,15 +114,12 @@ export class AffairManager {
         return orgList;
     }
 
-
-
-
     // Add registered member to the affair
     // If member is in the affair already, throw error
-    // ????????
+    // Else, search for member name
+    // If found, add member to affair
     public addMemberToAffair(memberName: string, affairName: string){
         let member = new Member();
-        //let affair = new Affair();
         for (let index = 0; index <= this.affairList.length - 1; index++) {
             if (this.affairList[index].affairName == affairName){ //find affair name
                 //search for member name in the affair
@@ -102,30 +133,37 @@ export class AffairManager {
                             member = this._memberList[i];
                             //return member;
                     }
-                    this.affairList[index].affairMemberList.push(member);
-                    
+                    console.log("Member added.")
+                    this.affairList[index].affairMemberList.push(member);       
             }
         }
     }
     
+    // if newAffairName selected, modify affairName
+    // if time selected, modify time
     public modifyAffair(affairName: string, newAffairName?: string, time?: string){
         //change affair name
-        for (let i = 0; i <= this.affairList.length - 1; i++) {
-            if (this.affairList[i].affairName == affairName){
+        if(newAffairName){
+            for (let i = 0; i <= this.affairList.length - 1; i++) {
+                if (this.affairList[i].affairName == affairName){
                 this.affairList[i].affairName = newAffairName;
+                }
             }
         }
         //change affair time
-        for (let i = 0; i <= this.affairList.length - 1; i++) {
-            if (this.affairList[i].affairName == affairName){
-                this.affairList[i].time = time;
+        else if(time){
+            for (let i = 0; i <= this.affairList.length - 1; i++) {
+                if (this.affairList[i].affairName == affairName){
+                    this.affairList[i].time = time;
+                }
             }
         }
-
-
     }
 
-    // returning object on search, affairName has to be string ???
+    // Add registered affair to the organization
+    // If affair is in the organization already, throw error
+    // Else, search for affair name
+    // If found, add affair to organization
     public addAffairToOrganization(affairName: string, organizationName: string){
         let affair = new Affair();
         for (let index = 0; index <= this.organizationList.length - 1; index++) {
@@ -139,24 +177,23 @@ export class AffairManager {
                     for (let i = 0; i <= this.affairList.length - 1; i++) {
                         if (this.affairList[i].affairName == affairName)
                             affair = this.affairList[i];
-                    } 
+                    }
+                    console.log("Affair added.")
                     this.organizationList[index].affairList.push(affair);
             }
         }
     }
+
     // List members in an affair, include email addresses
-    // Use map() function
+    // try map() function ?
+    // used toString override to list members
     public getMembers(affairName: string): Member[]{
         for (let i = 0; i < this.affairList.length; i++) {
             if (this.affairList[i].affairName == affairName){
                 let members = this.affairList[i].affairMemberList;
                 return members;
             }
-            
         }
-        
-        
-        return;
     }
 
 }

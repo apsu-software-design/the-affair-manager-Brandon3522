@@ -27,5 +27,4 @@ for (var i = 0; i <= affairManager.affairList.length - 1; i++) {
 console.log(affairManager.findMemberNames("bob"));
 console.log("\n");
 var affairOrg = affairManager.addAffairToOrganization("affair", "org");
-console.log(affairOrg.affairName);
 //# sourceMappingURL=test.js.map

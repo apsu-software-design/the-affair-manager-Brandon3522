@@ -18,6 +18,26 @@ var Affair = (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(Affair.prototype, "time", {
+        get: function () {
+            return this._time;
+        },
+        set: function (v) {
+            this._time = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Affair.prototype, "location", {
+        get: function () {
+            return this._location;
+        },
+        set: function (v) {
+            this._location = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Affair.prototype, "affairName", {
         get: function () {
             return this._affairName;
@@ -36,8 +56,6 @@ var Affair = (function () {
             }
         }
         return member;
-    };
-    Affair.prototype.modifyAffairName = function () {
     };
     return Affair;
 }());
